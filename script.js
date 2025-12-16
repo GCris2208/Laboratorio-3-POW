@@ -61,20 +61,21 @@ userIdInput.addEventListener('blur', function(evento) {
     const userId = userIdInput.value;
     if (isNaN(userId) || userId < 1 || userId > 10) { //esta es la validacion recomendada para que el usuario solo coloque valores permitidos
         statusArea.textContent = 'Error: El ID debe ser un número entre 1 y 10.';
-        console.log("funciono validacion")
+        statusArea.style.color = "#dc3545";
         return;
     }
+    statusArea.style.color = "#ffffffff";
 })
 
 postForm.addEventListener('submit', function (event) {
     event.preventDefault();
-    console.log(userIdInput.value)
     const userId = userIdInput.value;
     if (isNaN(userId) || userId < 1 || userId > 10) { //esta es la validacion recomendada para que el usuario solo coloque valores permitidos
         statusArea.textContent = 'Error: El ID debe ser un número entre 1 y 10.';
-        console.log("funciono validacion")
+        statusArea.style.color = "#dc3545";
         return;
     }
+    statusArea.style.color = "#ffffffff";
     statusArea.textContent = 'Cargando...';
 fetchPostsByUser(userId); //la pticion al fetch
 });
@@ -152,12 +153,11 @@ function saveLastUserId(userId) {
 // - Restablezca el mensaje de estado a "Aún no se ha hecho ninguna petición."
 // - Elimine los posts guardados en localStorage (usando la clave POSTS_DATA_KEY).
 
-clearResultsBtn.addEventListener('click', () => {
-    if (confirm("¿Estás seguro de eliminar TODOS los datos de localStorage?")) {
+clearResultsBtn.addEventListener('click', () => {//le añado el evento al boton
+    if (confirm("¿Estás seguro de eliminar TODOS los datos de localStorage?")) {//le pregunto si está seguro
         localStorage.clear();
-        statusArea.textContent = "🗑️ Todo el localStorage ha sido limpiado";
+        statusArea.textContent = "🗑️ Todo el localStorage ha sido limpiado";//le muestro este mensaje por 4 segundos con un timeout
         statusArea.style.color = "#dc3545";
-        console.log("local storage completamente limpiado");
         postsList.innerHTML = '';
         localStorage.removeItem(POSTS_DATA_KEY);
         setTimeout(() => {
@@ -166,3 +166,5 @@ clearResultsBtn.addEventListener('click', () => {
         }, 4000);
     }
 });
+
+//Profesor hay un error que me ocurre una vez cada no se, 20 veces, que cuando el programa es iniciado se marca un error en el log, pero llevo desde ayer tratando de entender que es y según entiendo no es un error de código, sino con las peticiones, no se es muy raro
